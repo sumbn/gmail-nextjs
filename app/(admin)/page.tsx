@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 
 const HomePage = () => {
 
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
