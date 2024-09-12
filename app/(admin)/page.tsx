@@ -58,19 +58,22 @@ const HomePage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((user: any) => (
-              <TableRow key={user.id}>
-                <TableCell component='th' scope='row'>
-                  {user.id}
-                </TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.password}</TableCell>
-                <TableCell>{user.isVerify}</TableCell>
-                <TableCell>{user.createdBy}</TableCell>
-                <TableCell>{user.created_at}</TableCell>
-              </TableRow>
-            ))}
+            {data?.map((user: any) => {
+              // console.log('user =>>>           ', user)
+              return (
+                <TableRow key={user.id}>
+                  <TableCell component='th' scope='row'>
+                    {user.id}
+                  </TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.password}</TableCell>
+                  <TableCell>{user.isVerify ? 'Yes' : 'No'}</TableCell>
+                  <TableCell>{user.createdBy}</TableCell>
+                  <TableCell>{user.created_at}</TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>
