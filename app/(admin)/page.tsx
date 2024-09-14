@@ -53,8 +53,9 @@ const HomePage = () => {
               <TableCell sx={{ color: 'white' }}>Email</TableCell>
               <TableCell sx={{ color: 'white' }}>Password</TableCell>
               <TableCell sx={{ color: 'white' }}>Verify</TableCell>
+              <TableCell sx={{ color: 'white' }}>Phone</TableCell>
               <TableCell sx={{ color: 'white' }}>Created_by</TableCell>
-              <TableCell sx={{ color: 'white' }}>Created</TableCell>
+              {/* <TableCell sx={{ color: 'white' }}>Created</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -69,8 +70,9 @@ const HomePage = () => {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.password}</TableCell>
                   <TableCell>{user.isVerify ? 'Yes' : 'No'}</TableCell>
+                  <TableCell>{user.phoneModel}</TableCell>
                   <TableCell>{user.createdBy}</TableCell>
-                  <TableCell>{user.created_at}</TableCell>
+                  {/* <TableCell>{user.created_at}</TableCell> */}
                 </TableRow>
               )
             })}
