@@ -13,6 +13,7 @@ import {
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import ApiClient from '../utils/apiClient'
 import { useEffect, useState } from 'react'
+import moment from 'moment-timezone'
 
 const HomePage = () => {
   // const [data, setData] = useState(null);
@@ -61,6 +62,9 @@ const HomePage = () => {
           <TableBody>
             {data?.map((user: any) => {
               // console.log('user =>>>           ', user)
+              const formattedCreatedAt = moment(user.createdAt)
+                .tz('Asia/Ho_Chi_Minh')
+                .format('YYYY-MM-DD HH:mm:ss')
               return (
                 <TableRow key={user.id}>
                   <TableCell component='th' scope='row'>
@@ -72,7 +76,7 @@ const HomePage = () => {
                   <TableCell>{user.isVerify ? 'Yes' : 'No'}</TableCell>
                   <TableCell>{user.phoneModel}</TableCell>
                   <TableCell>{user.createdBy}</TableCell>
-                  <TableCell>{user.createdAt}</TableCell>
+                  <TableCell>{formattedCreatedAt}</TableCell>
                 </TableRow>
               )
             })}
