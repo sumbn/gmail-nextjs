@@ -98,15 +98,21 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 100 }
 
 export function TableView({ listItem }: ITableViewProps) {
+  const pageSize = 100
+
+  const totalRows = listItem.length
+  const lastPage = Math.ceil(totalRows / pageSize) - 1
+
   return (
     <Paper sx={{ width: '100%' }}>
       <DataGrid
         rows={listItem}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[50, 100]}
+        pageSizeOptions={[100]}
         checkboxSelection
         autoHeight
+        paginationModel={{ page: lastPage, pageSize }}
         sx={{ border: 0 }}
       />
     </Paper>
