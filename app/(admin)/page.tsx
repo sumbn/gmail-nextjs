@@ -1,19 +1,9 @@
 'use client'
-import {
-  Button,
-  Container,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import ApiClient from '../utils/apiClient'
+import { Button, Container } from '@mui/material'
 import { useEffect, useState } from 'react'
-import moment from 'moment-timezone'
+import ApiClient from '../utils/apiClient'
+import { TableView } from './table'
 
 const HomePage = () => {
   // const [data, setData] = useState(null);
@@ -45,44 +35,7 @@ const HomePage = () => {
       >
         Create new user
       </Button>
-      <TableContainer component={Paper}>
-        <Table size='small' sx={{ minWidth: 650 }} aria-label='simple table'>
-          <TableHead sx={{ backgroundColor: '#2e7d32 !important' }}>
-            <TableRow>
-              <TableCell sx={{ color: 'white' }}>ID</TableCell>
-              <TableCell sx={{ color: 'white' }}>Name</TableCell>
-              <TableCell sx={{ color: 'white' }}>Email</TableCell>
-              <TableCell sx={{ color: 'white' }}>Password</TableCell>
-              <TableCell sx={{ color: 'white' }}>Verify</TableCell>
-              <TableCell sx={{ color: 'white' }}>Phone</TableCell>
-              <TableCell sx={{ color: 'white' }}>Created_by</TableCell>
-              <TableCell sx={{ color: 'white' }}>Created</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data?.map((user: any) => {
-              // console.log('user =>>>           ', user)
-              const formattedCreatedAt = moment(user.createdAt)
-                .tz('Asia/Ho_Chi_Minh')
-                .format('YYYY-MM-DD HH:mm:ss')
-              return (
-                <TableRow key={user.id}>
-                  <TableCell component='th' scope='row'>
-                    {user.id}
-                  </TableCell>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.password}</TableCell>
-                  <TableCell>{user.isVerify ? 'Yes' : 'No'}</TableCell>
-                  <TableCell>{user.phoneModel}</TableCell>
-                  <TableCell>{user.createdBy}</TableCell>
-                  <TableCell>{formattedCreatedAt}</TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <TableView listItem={data} />
     </Container>
   )
 }
