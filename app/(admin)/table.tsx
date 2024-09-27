@@ -95,8 +95,6 @@ const columns: GridColDef[] = [
   },
 ]
 
-const paginationModel = { page: 0, pageSize: 100 }
-
 export function TableView({ listItem }: ITableViewProps) {
   const pageSize = 100
 
@@ -104,16 +102,22 @@ export function TableView({ listItem }: ITableViewProps) {
   const lastPage = Math.ceil(totalRows / pageSize) - 1
 
   return (
-    <Paper sx={{ width: '100%' }}>
+    <Paper sx={{ width: '100%', height: '800px' }}>
+      {' '}
+      {/* Chiều cao cố định */}
       <DataGrid
         rows={listItem}
         columns={columns}
-        initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[100]}
         checkboxSelection
-        autoHeight
         paginationModel={{ page: lastPage, pageSize }}
-        sx={{ border: 0 }}
+        sx={{
+          border: 0,
+          '& .MuiDataGrid-root': {
+            minHeight: '100%', // Đảm bảo bảng chiếm toàn bộ chiều cao
+          },
+        }}
+        disableColumnMenu
       />
     </Paper>
   )
