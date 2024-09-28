@@ -1,6 +1,6 @@
 'use client'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import { Button, Container, Pagination } from '@mui/material'
+import { Box, Button, Container, Pagination } from '@mui/material'
 import { useEffect, useState } from 'react'
 import ApiClient from '../utils/apiClient'
 import { TableView } from './table'
@@ -48,12 +48,21 @@ const HomePage = () => {
         Create new user
       </Button>
       <TableView listItem={accounts} />
-      <Pagination
-        count={totalPages}
-        page={currentPage}
-        onChange={handlePageChange}
-        color='primary'
-      />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end', // Đẩy pagination sang bên phải
+          padding: '16px',
+        }}
+      >
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          color='primary'
+          shape='rounded'
+        />
+      </Box>
     </Container>
   )
 }
