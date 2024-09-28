@@ -79,7 +79,7 @@ export function TableView({ listItem }: ITableViewProps) {
           {listItem.map((account) => {
             const formattedCreatedAt = moment(account.createdAt)
               .tz('Asia/Ho_Chi_Minh')
-              .format('YYYY-MM-DD HH:mm:ss')
+              .format('HH:mm:ss YYYY-MM-DD')
             return (
               <StyledTableRow key={account.id}>
                 <StyledTableCell>{account.id}</StyledTableCell>
