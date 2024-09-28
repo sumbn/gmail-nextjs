@@ -6,28 +6,10 @@ import ApiClient from '../utils/apiClient'
 import { TableView } from './table'
 
 const HomePage = () => {
-  // const [data, setData] = useState(null);
-  // const [data, setData] = useState<any[]>([])
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const apiClient = ApiClient.getInstance()
-  //       const response = await apiClient.request('/account')
-  //       console.log('call api =>   ', response)
-  //       setData(response)
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error)
-  //     }
-  //   }
-
-  //   fetchData()
-  // }, [])
-
   const [accounts, setAccounts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const itemsPerPage = 100
+  const itemsPerPage = 50
 
   const fetchAccounts = async (page: number) => {
     try {
