@@ -3,7 +3,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { Box, Button, Container, Pagination } from '@mui/material'
 import { useEffect, useState } from 'react'
 import ApiClient from '../utils/apiClient'
-import { TableView } from './table'
+import { TableView } from './tableview'
 
 const HomePage = () => {
   const [accounts, setAccounts] = useState([])
@@ -51,7 +51,7 @@ const HomePage = () => {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end', // Đẩy pagination sang bên phải
+          justifyContent: 'flex-end',
           padding: '16px',
         }}
       >

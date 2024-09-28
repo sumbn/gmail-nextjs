@@ -1,9 +1,3 @@
-// import moment from 'moment-timezone'
-// import * as React from 'react'
-// import { DataGrid, GridColDef } from '@mui/x-data-grid'
-// import Paper from '@mui/material/Paper'
-// import Checkbox from '@mui/material/Checkbox'
-
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
@@ -13,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import moment from 'moment-timezone'
+
 export interface ItemAccount {
   id: string
   name: string
@@ -80,21 +76,28 @@ export function TableView({ listItem }: ITableViewProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {listItem.map((account) => (
-            <StyledTableRow key={account.id}>
-              <StyledTableCell>{account.id}</StyledTableCell>
-              <StyledTableCell>{account.name}</StyledTableCell>
-              <StyledTableCell>{account.email}</StyledTableCell>
-              <StyledTableCell>{account.password}</StyledTableCell>
-              <StyledTableCell>
-                {account.isVerify ? 'Yes' : 'No'}
-              </StyledTableCell>
-              <StyledTableCell>{account.isLive ? 'Yes' : 'No'}</StyledTableCell>
-              <StyledTableCell>{account.phoneModel}</StyledTableCell>
-              <StyledTableCell>{account.createdBy}</StyledTableCell>
-              <StyledTableCell>{account.createdAt}</StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {listItem.map((account) => {
+            const formattedCreatedAt = moment(account.createdAt)
+              .tz('Asia/Ho_Chi_Minh')
+              .format('YYYY-MM-DD HH:mm:ss')
+            return (
+              <StyledTableRow key={account.id}>
+                <StyledTableCell>{account.id}</StyledTableCell>
+                <StyledTableCell>{account.name}</StyledTableCell>
+                <StyledTableCell>{account.email}</StyledTableCell>
+                <StyledTableCell>{account.password}</StyledTableCell>
+                <StyledTableCell>
+                  {account.isVerify ? 'Yes' : 'No'}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {account.isLive ? 'Yes' : 'No'}
+                </StyledTableCell>
+                <StyledTableCell>{account.phoneModel}</StyledTableCell>
+                <StyledTableCell>{account.createdBy}</StyledTableCell>
+                <StyledTableCell>{formattedCreatedAt}</StyledTableCell>
+              </StyledTableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>
