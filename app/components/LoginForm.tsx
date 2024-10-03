@@ -1,12 +1,24 @@
 'use client'
-import { Box, Button, Grid, TextField } from "@mui/material"
-import { signIn } from "next-auth/react"
-import { useForm } from "react-hook-form"
-import { getErrMessage } from "../utils/common"
-import Link from "next/link"
-import { enqueueSnackbar, useSnackbar } from "notistack";
-import { useLoading } from "../context/loadingContext"
+import {
+  Button,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  TextFieldProps,
+} from '@mui/material'
+import { Box } from '@mui/system'
+import { signIn } from 'next-auth/react'
+import { Control, useController, useForm } from 'react-hook-form'
+import { getErrMessage } from '../utils/common'
+import Link from 'next/link'
+import { enqueueSnackbar, useSnackbar } from 'notistack'
+import { useLoading } from '../context/loadingContext'
+import { Password, Visibility, VisibilityOff } from '@mui/icons-material'
+import { getRandomValues } from 'crypto'
+import { useState } from 'react'
 
+/** 
 interface LoginFormProp {
   callRouter : () => void
 }
@@ -83,8 +95,97 @@ const LoginForm = ( {callRouter}: LoginFormProp) => {
         </Grid>
       </Box>
   )
+}
+*/
+export interface LoginPayload {
+  username: string
+  password: string
+}
+interface LoginFormProp {
+  onSubmit?: (payload: LoginPayload) => void
+}
 
+export function LoginForm({ onSubmit }: LoginFormProp) {
+  const [showPassword, setShowPassword] = useState(false)
+  const { control, handleSubmit } = useForm<LoginPayload>({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  })
 
+  function handleLoginSubmit(payload: LoginPayload) {
+    console.log(payload)
+    onSubmit?.(payload)
+  }
+  return (
+    <Box component='form' onSubmit={handleSubmit(handleLoginSubmit)}>
+      <InputField name='username' control={control} />
+      <InputField
+        type={showPassword ? 'text' : 'password'}
+        name='password'
+        control={control}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton
+                aria-label='toggle password visibility'
+                onClick={() => setShowPassword((x) => !x)}
+                edge='end'
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Button fullWidth sx={{ mt: 3, mb: 2 }} type='submit' variant='contained'>
+        Login
+      </Button>
+      <Grid container justifyContent='flex-end'>
+        <Grid item>
+          <Link
+            href='/register'
+            className='text-blue-500 underline hover:text-blue-700'
+          >
+            {"Don't have an account? Sign Up"}
+          </Link>
+        </Grid>
+      </Grid>
+    </Box>
+  )
 }
 
 export default LoginForm
+
+export type InputFieldProps = TextFieldProps & {
+  name: string
+  control: Control<any>
+}
+
+export function InputField({
+  name,
+  control,
+  onChange: externalOnChange,
+  onBlur: externalOnBlur,
+  ref: externalRef,
+  value: externalValue,
+  ...rest
+}: InputFieldProps) {
+  const {
+    field: { onChange, onBlur, value, ref },
+    fieldState: { error },
+  } = useController({ name, control })
+  return (
+    <TextField
+      margin='normal'
+      fullWidth
+      name={name}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      inputRef={ref}
+      {...rest}
+    />
+  )
+}
