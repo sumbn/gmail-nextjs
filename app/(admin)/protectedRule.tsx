@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode } from 'react'
-import Header from '../components/header/Header'
-import useAuth from '../hooks/useAuth'
+import Header from '../../components/header/Header'
+import useAuth from '../../hooks/useAuth'
 
 const ProtectedRule = ({ children }: { children: ReactNode }) => {
   const { session, status } = useAuth()
