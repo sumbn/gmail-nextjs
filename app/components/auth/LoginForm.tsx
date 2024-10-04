@@ -1,6 +1,12 @@
 'use client'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, Grid, IconButton, InputAdornment } from '@mui/material'
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  IconButton,
+  InputAdornment,
+} from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -32,7 +38,11 @@ export function LoginForm({ onSubmit }: LoginFormProp) {
     .required()
 
   const [showPassword, setShowPassword] = useState(false)
-  const { control, handleSubmit } = useForm<LoginPayload>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<LoginPayload>({
     defaultValues: {
       username: '',
       password: '',
@@ -40,9 +50,9 @@ export function LoginForm({ onSubmit }: LoginFormProp) {
     resolver: yupResolver(schema),
   })
 
-  function handleLoginSubmit(payload: LoginPayload) {
-    console.log(payload)
-    onSubmit?.(payload)
+  async function handleLoginSubmit(payload: LoginPayload) {
+    // console.log(payload)
+    await onSubmit?.(payload)
   }
   return (
     <Box component='form' onSubmit={handleSubmit(handleLoginSubmit)}>
@@ -65,7 +75,16 @@ export function LoginForm({ onSubmit }: LoginFormProp) {
           ),
         }}
       />
-      <Button fullWidth sx={{ mt: 3, mb: 2 }} type='submit' variant='contained'>
+      <Button
+        disabled={isSubmitting}
+        startIcon={
+          isSubmitting ? <CircularProgress color='inherit' size='1em' /> : null
+        }
+        fullWidth
+        sx={{ mt: 3, mb: 2 }}
+        type='submit'
+        variant='contained'
+      >
         Login
       </Button>
       <Grid container justifyContent='flex-end'>

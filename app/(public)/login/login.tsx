@@ -24,7 +24,7 @@ const Login = () => {
       setLoading(false)
       enqueueSnackbar('Incorrect email or Password', { variant: 'error' })
     } else {
-      // router.push('/')
+      router.push('/')
       setLoading(false)
     }
   }
