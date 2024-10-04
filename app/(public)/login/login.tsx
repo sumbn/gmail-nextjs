@@ -1,7 +1,7 @@
 'use client'
 import { Avatar, Box, Container, CssBaseline, Typography } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import LoginForm, { LoginPayload } from '../../components/LoginForm'
+import LoginForm, { LoginPayload } from '../../components/auth/LoginForm'
 import { useRouter } from 'next/navigation'
 import { useLoading } from '../../context/loadingContext'
 import { signIn } from 'next-auth/react'
