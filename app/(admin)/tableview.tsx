@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
@@ -8,20 +9,10 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import moment from 'moment-timezone'
+import { AccountRes } from '../../models/account-api'
 
-export interface ItemAccount {
-  id: string
-  name: string
-  email: string
-  password: string
-  isVerify: boolean
-  isLive: boolean
-  phoneModel: string
-  createdBy: string
-  createdAt: string
-}
 export interface ITableViewProps {
-  listItem: ItemAccount[]
+  listItem: AccountRes[]
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

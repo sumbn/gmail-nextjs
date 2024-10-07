@@ -2,24 +2,23 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { Box, Button, Container, Pagination } from '@mui/material'
 import { useEffect, useState } from 'react'
-import ApiClient from '../utils/apiClient'
 import { TableView } from './tableview'
+import { fetcher } from '../utils/fetch-data'
+import { AccountRes, PaginationResponse } from '../../models/account-api'
 
 const HomePage = () => {
-  const [accounts, setAccounts] = useState([])
+  const [accounts, setAccounts] = useState<AccountRes[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const itemsPerPage = 50
 
   const fetchAccounts = async (page: number) => {
     try {
-      const apiClient = ApiClient.getInstance()
-
-      const data = await apiClient.request(
-        `/account?page=${page}&items_per_page=${itemsPerPage}`
+      const data = await fetcher<PaginationResponse<AccountRes>>(
+        `https://project-gmail-gamma.vercel.app/account?page=${page}&items_per_page=${itemsPerPage}`
       )
-      setAccounts(data.data)
-      setTotalPages(data.lastPage)
+      data && setAccounts(data.data)
+      data && setTotalPages(data.lastPage)
     } catch (error) {
       console.error('Error fetching accounts:', error)
     }

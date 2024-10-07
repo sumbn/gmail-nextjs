@@ -1,6 +1,5 @@
-import { Box, Container, Link as MuiLink, Stack } from '@mui/material'
+import { Box, Container, Link, Stack } from '@mui/material'
 import { signOut, useSession } from 'next-auth/react'
-import Link from 'next/link'
 import { ROUTE_LIST } from './routes'
 
 const logout = () => {
@@ -36,26 +35,28 @@ const Header = () => {
           </Link>
           <Stack direction='row' justifyContent='flex-end'>
             {routeList.map((router) => (
-              <Link key={router.path} href={router.path} passHref>
-                <MuiLink sx={{ ml: 2, fontWeight: 'medium' }}>
-                  {router.label}
-                </MuiLink>
+              <Link
+                key={router.path}
+                href={router.path}
+                sx={{ ml: 2, fontWeight: 'medium' }}
+              >
+                {router.label}
               </Link>
             ))}
 
             {!isLoggedIn && (
-              <Link href='/login' passHref>
-                <MuiLink sx={{ ml: 2, fontWeight: 'medium' }}>Login</MuiLink>
+              <Link href='/login' sx={{ ml: 2, fontWeight: 'medium' }}>
+                Login
               </Link>
             )}
 
             {isLoggedIn && (
-              <MuiLink
+              <Link
                 sx={{ ml: 2, fontWeight: 'medium', cursor: 'pointer' }}
                 onClick={logout}
               >
                 Logout
-              </MuiLink>
+              </Link>
             )}
           </Stack>
         </Stack>

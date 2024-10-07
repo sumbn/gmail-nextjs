@@ -1,6 +1,6 @@
-import { getSession } from "next-auth/react";
+import { getSession } from 'next-auth/react'
 
-
+/** 
 class ApiClient {
   private static instance: ApiClient;
   private baseUrl: string;
@@ -45,3 +45,44 @@ class ApiClient {
 }
 
 export default ApiClient;
+*/
+export async function fetcher<T>(
+  url: string,
+  options?: RequestInit
+): Promise<T> {
+  const response = await fetch(url, options)
+
+  if (!response.ok) {
+    throw new Error(`An error occurred: ${response.statusText}`)
+  }
+
+  const data: T = await response.json()
+  return data
+}
+
+// export async function fetcher<T>(
+//   url: string,
+//   options?: RequestInit & { body?: any }
+// ): Promise<T> {
+//   const finalOptions: RequestInit = {
+//     method: 'GET',
+//     ...options,
+//   }
+
+//   if (finalOptions.body && typeof finalOptions.body === 'object') {
+//     finalOptions.body = JSON.stringify(finalOptions.body)
+//     finalOptions.headers = {
+//       ...finalOptions.headers,
+//       'Content-Type': 'application/json',
+//     }
+//   }
+
+//   const response = await fetch(url, finalOptions)
+
+//   if (!response.ok) {
+//     throw new Error(`An error occurred: ${response.statusText}`)
+//   }
+
+//   const data: T = await response.json()
+//   return data
+// }
