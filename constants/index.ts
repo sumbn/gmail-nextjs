@@ -28,4 +28,9 @@ export const headerLinks = [
     label: 'login',
     path: '/login',
   },
+  {
+    label: 'home',
+    path: '/home',
+    loginRequired: true,
+  },
 ];
