@@ -2,15 +2,26 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { LoginForm } from '../../../components';
 import { LoginPayload } from '../../../components/login/LoginForm';
+import { signIn } from 'next-auth/react';
+
+import { useRouter } from 'next/navigation';
 
 export interface ILoginPageProps {}
 
 export default function LoginPage(props: ILoginPageProps) {
+  const router = useRouter();
   async function handleLoginSubmit(payload: LoginPayload) {
-    try {
-      // await authApi.login(payload)
-      //router.push('/')
-    } catch (error) {}
+    const res = await signIn('credentials', {
+      redirect: false,
+      email: payload.username,
+      password: payload.password,
+    });
+    if (res?.error) {
+      console.log(res?.error);
+    } else {
+      console.log('router push');
+      router.push('/');
+    }
   }
   return (
     <Box>

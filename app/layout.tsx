@@ -9,6 +9,7 @@ import { Footer, Navbar } from '../components';
 import './globals.css';
 import Header from '../components/header';
 import { theme } from '../utils';
+import AuthProvider from '../context/authProvider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -37,21 +38,23 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Stack minHeight='100vh'>
-              {/* <Navbar /> */}
-              <Header />
-              <Box flexGrow={1}>
-                {/* <Container maxWidth='sm' sx={{ bgcolor: 'primary.main' }}>
+            {/* <CssBaseline /> */}
+            <AuthProvider>
+              <Stack minHeight='100vh'>
+                {/* <Navbar /> */}
+                <Header />
+                <Box flexGrow={1}>
+                  {/* <Container maxWidth='sm' sx={{ bgcolor: 'primary.main' }}>
                   SM
                 </Container>
                 <Container maxWidth='md' sx={{ bgcolor: 'primary.main' }}>
                   md
                 </Container> */}
-                {children}
-              </Box>
-              <Footer />
-            </Stack>
+                  {children}
+                </Box>
+                <Footer />
+              </Stack>
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

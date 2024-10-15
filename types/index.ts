@@ -1,3 +1,11 @@
+export interface LoginResponse {
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+}
 export interface AccountType {
   id: number;
   name: string;

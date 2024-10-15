@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
-import { TableAccount } from '../components';
-import { AccountsResponse } from '../types';
+import { TableAccount } from '../../../components';
+import { AccountsResponse } from '../../../types';
 import { Suspense } from 'react';
 
 export default async function Home() {
