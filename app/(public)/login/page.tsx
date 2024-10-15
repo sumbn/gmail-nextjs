@@ -1,30 +1,28 @@
-import { useEffect } from 'react'
-import ProtectedRule from '../../(admin)/protectedRule'
-import Login from './login'
-import { useAccountList } from '../../../hooks/use-account-list'
+'use client';
+import { Box, Paper, Typography } from '@mui/material';
+import { LoginForm } from '../../../components';
+import { LoginPayload } from '../../../components/login/LoginForm';
 
-const LoginPage = () => {
-  // useEffect(() => {
-  //   ;(async () => {
-  //     try {
-  //       //call api client
-  //     } catch (error) {}
-  //   })()
-  // }, [])
+export interface ILoginPageProps {}
 
-  //use swr call api
-  // const { data: accountlist, isLoading } = useAccountList({
-  //   params: { _page: 1 },
-  // })
-  // console.log({ accountlist, isLoading })
-
-  return <Login />
+export default function LoginPage(props: ILoginPageProps) {
+  async function handleLoginSubmit(payload: LoginPayload) {
+    try {
+      // await authApi.login(payload)
+      //router.push('/')
+    } catch (error) {}
+  }
+  return (
+    <Box>
+      <Paper
+        elevation={4}
+        sx={{ mx: 'auto', mt: 8, p: 4, maxWidth: '480px', textAlign: 'center' }}
+      >
+        <Typography component='h1' variant='h5'>
+          Login
+        </Typography>
+        <LoginForm onSubmit={handleLoginSubmit} />
+      </Paper>
+    </Box>
+  );
 }
-
-// LoginPage.Layout = ProtectedRule
-
-export async function getStaticProps() {
-  //call api server
-}
-
-export default LoginPage
