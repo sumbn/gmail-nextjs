@@ -21,15 +21,11 @@ export const footerLinks = [
 
 export const headerLinks = [
   {
-    label: 'dashboard',
+    label: 'Dashboard',
     path: '/',
   },
   {
-    label: 'login',
-    path: '/login',
-  },
-  {
-    label: 'home',
+    label: 'Home',
     path: '/home',
     loginRequired: true,
   },

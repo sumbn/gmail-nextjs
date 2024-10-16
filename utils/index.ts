@@ -1,3 +1,4 @@
 import theme from './theme';
+import apiCall from './api';
 
-export { theme };
+export { theme, apiCall };

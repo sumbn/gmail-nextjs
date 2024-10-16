@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AccountsResponse, AccountType } from '../../types';
+import { AccountsResponse, AccountType, ErrorResponse } from '../../types';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { blueGrey, red } from '@mui/material/colors';
@@ -23,6 +23,7 @@ import {
   SelectChangeEvent,
   Stack,
 } from '@mui/material';
+import { apiCall } from '../../utils';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -60,6 +61,17 @@ const Overlay = styled('div')(({ theme }) => ({
   zIndex: 1,
 }));
 
+async function getData(
+  page: number,
+  itemsPerPage: number
+): Promise<AccountsResponse | ErrorResponse> {
+  const url = `/account?page=${page}&items_per_page=${itemsPerPage}`;
+
+  const response = await apiCall<AccountsResponse>(url);
+
+  return response; // Trả về trực tiếp kết quả, có thể là AccountsResponse hoặc ErrorResponse
+}
+
 export interface TableAccountProps {
   list: AccountType[];
   lastPage: number | null;
@@ -79,34 +91,35 @@ export default function TableAccount(props: TableAccountProps) {
   );
   const [lastPage, setLastPage] = React.useState(props.lastPage);
 
-  async function getData(page: number, itemsPerPage: number) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/account?page=${page}&items_per_page=${itemsPerPage}`
-    );
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-
-    const response: AccountsResponse = await res.json();
-    return response;
-  }
-
   React.useEffect(() => {
     const fetchData = async () => {
+      // setLoading(true);
+      // const newPage = Number(searchParams.get('page')) || 1;
+      // const newItemsPerPage = Number(searchParams.get('itemsPerPage')) || 20;
+
+      // try {
+      //   const data = await getData(newPage, newItemsPerPage);
+      //   setListAccounts(data.data);
+      //   setLastPage(data.lastPage);
+      // } catch (error) {
+      //   console.error('Failed to fetch data:', error);
+      // } finally {
+      //   setLoading(false);
+      // }
       setLoading(true);
       const newPage = Number(searchParams.get('page')) || 1;
       const newItemsPerPage = Number(searchParams.get('itemsPerPage')) || 20;
 
-      try {
-        const data = await getData(newPage, newItemsPerPage);
+      const data = await getData(newPage, newItemsPerPage);
+
+      if ('error' in data) {
+        console.error('Failed to fetch data:', data.error);
+      } else {
         setListAccounts(data.data);
         setLastPage(data.lastPage);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      } finally {
-        setLoading(false);
       }
+
+      setLoading(false);
     };
 
     fetchData();
