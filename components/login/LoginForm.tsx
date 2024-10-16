@@ -12,7 +12,7 @@ import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { InputField } from '../form/InputField';
-import { useLoginFormSchema } from '../../hooks/useLoginFormSchema';
+import { useLoginFormSchema } from '../../hooks';
 
 export interface LoginPayload {
   username: string;

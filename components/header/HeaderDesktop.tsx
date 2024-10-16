@@ -2,7 +2,7 @@
 import { Box, Button, Container, Link, Stack, Typography } from '@mui/material';
 import * as React from 'react';
 import { headerLinks } from '../../constants';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function HeaderDesktop() {
@@ -17,7 +17,9 @@ export default function HeaderDesktop() {
     router.push('/login');
   }
 
-  function handleLogout() {}
+  function handleLogout() {
+    signOut({ callbackUrl: '/login' });
+  }
 
   return (
     <Box display={{ xs: 'none', lg: 'block' }} py={2}>
@@ -39,24 +41,6 @@ export default function HeaderDesktop() {
               <Typography sx={{ color: 'white' }}>{route.label}</Typography>
             </Link>
           ))}
-
-          {status === 'authenticated' ? (
-            <Link
-              sx={{ ml: 2, color: 'white', cursor: 'pointer' }}
-              underline='hover'
-              onClick={() => console.log('Logout clicked')}
-            >
-              <Typography sx={{ color: 'white' }}>Logout</Typography>
-            </Link>
-          ) : (
-            <Link
-              sx={{ ml: 2, color: 'white', cursor: 'pointer' }}
-              underline='hover'
-              onClick={handleLogin}
-            >
-              <Typography sx={{ color: 'white' }}>Login</Typography>
-            </Link>
-          )}
         </Stack>
       </Container>
     </Box>

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-export function useLoginFormSchema() {
+export default function useLoginFormSchema() {
   return yup.object().shape({
     username: yup
       .string()

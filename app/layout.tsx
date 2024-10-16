@@ -37,21 +37,11 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            {/* <CssBaseline /> */}
+            <CssBaseline />
             <AuthProvider>
               <Stack minHeight='100vh'>
-                {/* <Navbar /> */}
                 <Header />
-                <Box flexGrow={1}>
-                  {/* <Container maxWidth='sm' sx={{ bgcolor: 'primary.main' }}>
-                  SM
-                </Container>
-                <Container maxWidth='md' sx={{ bgcolor: 'primary.main' }}>
-                  md
-                </Container> */}
-                  {children}
-                </Box>
+                <Box flexGrow={1}>{children}</Box>
                 <Footer />
               </Stack>
             </AuthProvider>
