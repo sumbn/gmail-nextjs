@@ -9,9 +9,8 @@ export default function HeaderDesktop() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === 'authenticated') {
-    console.log('đã login');
-  }
+  // if (status === 'authenticated') {
+  // }
 
   function handleLogin() {
     router.push('/login');
@@ -41,6 +40,25 @@ export default function HeaderDesktop() {
               <Typography sx={{ color: 'white' }}>{route.label}</Typography>
             </Link>
           ))}
+          {status == 'authenticated' ? (
+            <Link
+              sx={{ ml: 2 }}
+              underline='hover'
+              component='button'
+              onClick={handleLogout}
+            >
+              <Typography sx={{ color: 'white' }}>Logout</Typography>
+            </Link>
+          ) : (
+            <Link
+              sx={{ ml: 2 }}
+              underline='hover'
+              component='button'
+              onClick={handleLogin}
+            >
+              <Typography sx={{ color: 'white' }}>Login</Typography>
+            </Link>
+          )}
         </Stack>
       </Container>
     </Box>

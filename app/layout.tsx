@@ -1,15 +1,14 @@
-import { Box, Container, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Footer, Navbar } from '../components';
+import { Footer } from '../components';
 
-import './globals.css';
 import Header from '../components/header';
-import { theme } from '../utils';
 import AuthProvider from '../context/authProvider';
+import { theme } from '../utils';
+import './globals.css';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -37,7 +36,8 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
-            <CssBaseline />
+            {/* <CssBaseline /> */}
+
             <AuthProvider>
               <Stack minHeight='100vh'>
                 <Header />

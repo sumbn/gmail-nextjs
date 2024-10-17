@@ -42,6 +42,7 @@ const authOption: NextAuthOptions = {
           return {
             name: userData.user.name,
             email: userData.user.email,
+            accessToken: userData.accessToken,
           } as User;
         }
 
@@ -58,6 +59,7 @@ const authOption: NextAuthOptions = {
       if (user) {
         token.email = user.email;
         token.name = user.name;
+        token.accessToken = user.accessToken;
       }
       return token;
     },
@@ -67,6 +69,7 @@ const authOption: NextAuthOptions = {
         session.user = {
           email: token.email,
           name: token.name,
+          accessToken: token.accessToken,
         };
       }
       return session;

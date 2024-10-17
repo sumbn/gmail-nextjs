@@ -8,7 +8,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AccountsResponse, AccountType, ErrorResponse } from '../../types';
+import {
+  AccountsResponse,
+  AccountType,
+  ErrorResponse,
+  FilterAccountPayload,
+} from '../../types';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { blueGrey, red } from '@mui/material/colors';
@@ -24,6 +29,7 @@ import {
   Stack,
 } from '@mui/material';
 import { apiCall } from '../../utils';
+import FilterForm from '../account/filterForm';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -63,13 +69,18 @@ const Overlay = styled('div')(({ theme }) => ({
 
 async function getData(
   page: number,
-  itemsPerPage: number
+  itemsPerPage: number,
+  search?: string
 ): Promise<AccountsResponse | ErrorResponse> {
-  const url = `/account?page=${page}&items_per_page=${itemsPerPage}`;
+  let url = `/account?page=${page}&items_per_page=${itemsPerPage}`;
+
+  if (search) {
+    url += `&search=${encodeURIComponent(search)}`;
+  }
 
   const response = await apiCall<AccountsResponse>(url);
 
-  return response; // Trả về trực tiếp kết quả, có thể là AccountsResponse hoặc ErrorResponse
+  return response;
 }
 
 export interface TableAccountProps {
@@ -93,24 +104,13 @@ export default function TableAccount(props: TableAccountProps) {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      // setLoading(true);
-      // const newPage = Number(searchParams.get('page')) || 1;
-      // const newItemsPerPage = Number(searchParams.get('itemsPerPage')) || 20;
-
-      // try {
-      //   const data = await getData(newPage, newItemsPerPage);
-      //   setListAccounts(data.data);
-      //   setLastPage(data.lastPage);
-      // } catch (error) {
-      //   console.error('Failed to fetch data:', error);
-      // } finally {
-      //   setLoading(false);
-      // }
       setLoading(true);
+
       const newPage = Number(searchParams.get('page')) || 1;
       const newItemsPerPage = Number(searchParams.get('itemsPerPage')) || 20;
+      const searchQuery = searchParams.get('search') || '';
 
-      const data = await getData(newPage, newItemsPerPage);
+      const data = await getData(newPage, newItemsPerPage, searchQuery);
 
       if ('error' in data) {
         console.error('Failed to fetch data:', data.error);
@@ -148,8 +148,21 @@ export default function TableAccount(props: TableAccountProps) {
     },
   };
 
+  function handleFilterChange(value: FilterAccountPayload) {
+    const { search } = value;
+
+    let queryParams = `?page=1&itemsPerPage=${itemsPerPage}`;
+
+    if (search && search.trim() !== '') {
+      queryParams += `&search=${encodeURIComponent(search.trim())}`;
+    }
+
+    router.push(queryParams);
+  }
+
   return (
     <Box>
+      <FilterForm onSubmit={handleFilterChange} />
       <OverlayContainer>
         <TableContainer
           component={Paper}

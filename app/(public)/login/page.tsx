@@ -3,13 +3,12 @@ import { Box, Paper, Typography } from '@mui/material';
 import { LoginForm } from '../../../components';
 import { LoginPayload } from '../../../components/login/LoginForm';
 import { signIn } from 'next-auth/react';
-
 import { useRouter } from 'next/navigation';
+import { useSnackbar } from 'notistack';
 
-export interface ILoginPageProps {}
-
-export default function LoginPage(props: ILoginPageProps) {
+export default function LoginPage() {
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   async function handleLoginSubmit(payload: LoginPayload) {
     const res = await signIn('credentials', {
       redirect: false,
@@ -17,9 +16,8 @@ export default function LoginPage(props: ILoginPageProps) {
       password: payload.password,
     });
     if (res?.error) {
-      console.log(res?.error);
+      enqueueSnackbar('email or password incorrect', { variant: 'error' });
     } else {
-      console.log('router push');
       router.push('/');
     }
   }

@@ -1,4 +1,5 @@
 import { TextField, TextFieldProps } from '@mui/material';
+import { ChangeEvent } from 'react';
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 
 export type IInputFieldProps<T extends FieldValues> = TextFieldProps & {
@@ -29,7 +30,10 @@ export function InputField<T extends FieldValues>({
       margin='normal'
       name={name}
       value={value}
-      onChange={onChange}
+      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+        onChange(event);
+        externalOnChange?.(event);
+      }}
       onBlur={onBlur}
       inputRef={ref}
       variant='outlined'
