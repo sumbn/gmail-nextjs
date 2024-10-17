@@ -166,7 +166,7 @@ export default function TableAccount(props: TableAccountProps) {
       <OverlayContainer>
         <TableContainer
           component={Paper}
-          sx={{ maxHeight: 'calc(100vh - 200px)' }}
+          sx={{ maxHeight: 'calc(100vh - 300px)' }}
         >
           <Table sx={{ minWidth: 700 }} aria-label='customized table'>
             <TableHead>
