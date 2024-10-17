@@ -22,10 +22,7 @@ export default function FilterForm({ onSubmit }: IFilterFormProps) {
     await onSubmit?.(payload);
   }
 
-  const deboundSearchChange = debounce(
-    () => handleSubmit(handleSearchSubmit)(),
-    500
-  );
+  const deboundSearchChange = debounce(handleSubmit(handleSearchSubmit), 500);
 
   return (
     <Box component='form' onSubmit={handleSubmit(handleSearchSubmit)}>
