@@ -148,16 +148,26 @@ export default function TableAccount(props: TableAccountProps) {
     },
   };
 
-  function handleFilterChange(value: FilterAccountPayload) {
-    const { search } = value;
+  function handleFilterChange({ search }: FilterAccountPayload) {
+    // const { search } = value;
 
-    let queryParams = `?page=1&itemsPerPage=${itemsPerPage}`;
+    // let queryParams = `?page=1&itemsPerPage=${itemsPerPage}`;
+
+    // if (search && search.trim() !== '') {
+    //   queryParams += `&search=${encodeURIComponent(search.trim())}`;
+    // }
+
+    // router.push(queryParams);
 
     if (search && search.trim() !== '') {
-      queryParams += `&search=${encodeURIComponent(search.trim())}`;
+      return router.push(
+        `?page=1&itemsPerPage=${itemsPerPage}&search=${encodeURIComponent(
+          search.trim()
+        )}`
+      );
     }
 
-    router.push(queryParams);
+    return router.push(`?page=1&itemsPerPage=${itemsPerPage}`);
   }
 
   return (
